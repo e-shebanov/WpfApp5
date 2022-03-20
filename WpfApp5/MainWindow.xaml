@@ -1,0 +1,47 @@
+﻿<Window x:Class="WpfApp5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:bsFilter="http://schemas.bolapansoft.com/xaml/Controls/ItemsFilter"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp5"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="798" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="pipesViewSource"/>
+        <CollectionViewSource x:Key="packagePipesViewSource"/>
+        <Style TargetType="DataGridRow">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Quality}" Value="брак">
+                    <Setter Property="Background" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <bsFilter:FilterDataGrid x:Name="pipesDataGrid" AutoGenerateColumns="False" 
+                      EnableRowVirtualization="True"
+                      ItemsSource="{Binding Source={StaticResource pipesViewSource}}" 
+                      Margin="13,13,10,34" RowDetailsVisibilityMode="VisibleWhenSelected" LoadingRow="pipesDataGrid_LoadingRow">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding PipeId}"
+                                        Header="Id" Width="SizeToHeader"
+                                        IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Quality}" Header="Качество"
+                                        Width="*"/>
+                <DataGridTextColumn Binding="{Binding SteelGrade}" Header="Марка стали"
+                                        Width="*"/>
+                <DataGridTextColumn Binding="{Binding DN}" Header="DN"
+                                        Width="*"/>
+                <DataGridTextColumn Binding="{Binding DH}" Header="DH"
+                                        Width="*"/>
+                <DataGridTextColumn Binding="{Binding S}" Header="S"
+                                        Width="*"/>
+            </DataGrid.Columns>
+
+        </bsFilter:FilterDataGrid>
+        <Button Content="Save" HorizontalAlignment="Center" Margin="0,0,0,10" 
+                    Click="Button_Click" Width="124" Height="19" VerticalAlignment="Bottom"/>
+    </Grid>
+</Window>
